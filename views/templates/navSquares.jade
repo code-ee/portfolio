@@ -1,0 +1,59 @@
+.container-fluid
+    nav#navSquares
+        ul.nav(data-spy="affix" data-offset-top="-1")
+            .row
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare.activeNav#l-home
+                        li.navText Home
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+            .row
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare#l-tech
+                        li.navText Technologies
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare#l-projects
+                        li.navText Projects
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+            .row
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare#l-social
+                        li.navText Social
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare#l-stats
+                        li.navText Stats
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare#l-resume
+                        li.navText Resume
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare#l-employment
+                        li.navText Employment
+            .row
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+                .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                    .square.navSquare#l-contact
+                        li.navText Contact
+                .col-lg-3.col-md-3.hidden-sm.hidden-xs
+                    .square
+
+//script.
+    $('.navSquare').click(function () {
+        removeAllActive();
+        $(this).addClass('activeNav');
+
+        var href = $(this).attr('id').split('-')[1];
+        $('html,body').animate({
+                scrollTop: $('#' + href).offset().top - 25
+            },
+            'slow');
+    });

@@ -1,0 +1,88 @@
+doctype html
+html
+    head
+        // Metadata
+        meta(charset='utf-8')
+        meta(name='author', content='Cody Patterson')
+        meta(name='keywords', content='Cody Patterson, Web Developer, Full Stack, Software, JavaScript')
+        meta(name='description', content='Cody Patterson is a web and software developer skilled in full stack development, website design and object oriented software development')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title Cody Patterson - Web & Software Developer
+        // bootstrap and ajax
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css', integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp', crossorigin='anonymous')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+        // local styling
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/fonts.css')
+    body
+        block content
+
+script.
+    var positions = {
+        home: $('#home').offset().top - 25,
+        tech: $('#tech').offset().top - 25,
+        projects: $('#projects').offset().top - 25,
+        social: $('#social').offset().top - 25,
+        stats: $('#stats').offset().top - 25,
+        resume: $('#resume').offset().top - 25,
+        employment: $('#employment').offset().top - 25,
+        contact: $('#contact').offset().top - 25
+    };
+
+    function removeAllActive() {
+        $('.navSquare').removeClass('activeNav');
+    }
+
+    // Bind click handler to menu items
+    // so we can get a fancy scroll animation
+    $('.navSquare').click(function () {
+        removeAllActive();
+        $(this).addClass('activeNav');
+
+        var href = $(this).attr('id').split('-')[1];
+        $('html,body').animate({
+                scrollTop: $('#' + href).offset().top - 25
+            },
+            'slow');
+    });
+
+    // Bind to scroll
+    $(window).scroll(function () {
+        // Get container scroll position
+        var fromTop = $(this).scrollTop() + 25;
+        console.log(fromTop);
+
+        if(fromTop < positions.tech) {
+            selectNav('#home');
+        } else if (fromTop >= positions.tech && fromTop < positions.projects) {
+            selectNav('#tech');
+        } else if (fromTop >= positions.projects && fromTop < positions.social) {
+            selectNav('#projects');
+        } else if (fromTop >= positions.social && fromTop < positions.stats) {
+            selectNav('#social');
+        } else if (fromTop >= positions.stats && fromTop < positions.resume) {
+            selectNav('#stats');
+        } else if (fromTop >= positions.resume && fromTop < positions.employment) {
+            selectNav('#resume');
+        } else if (fromTop >= positions.employment && fromTop < positions.contact) {
+            selectNav('#employment');
+        } else if (fromTop >= positions.contact) {
+            selectNav('#contact');
+        } else {
+            console.log('could not detect where scroll was');
+        }
+
+
+    });
+
+    function selectNav(id) {
+        var squareId = '#l-' + id.substr(1);
+        $navSq = $(squareId);
+
+        if(!$navSq.hasClass('activeNav')) {
+            removeAllActive();
+            $navSq.addClass('activeNav');
+        }
+    }
