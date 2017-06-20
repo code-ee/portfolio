@@ -1,4 +1,42 @@
 h1#contact.big Contact
-- for (var i = 0; i < 2; i++)
-    p.
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+#contactForm.row
+    .col-md-12
+        form.text-xs-left
+            .col-md-6
+                fieldset.form-group
+                    label(for='firstInput') First Name
+                    input#firstInput.form-control(type='text', placeholder='Enter first name')
+            .col-md-6
+                fieldset.form-group
+                    label(for='lastInput') Last Name
+                    input#lastInput.form-control(type='text', placeholder='Enter last name')
+            .col-md-6
+                fieldset.form-group
+                    label(for='emailInput') Email address
+                    input#emailInput.form-control(type='email', placeholder='Enter email')
+            .col-md-6
+                fieldset.form-group
+                    label(for='numberInput') Phone Number
+                    input#numberInput.form-control(type='number', placeholder='Enter phone number (optional)')
+            .col-md-12
+                fieldset.form-group
+                    label(for='subjectInput') Subject
+                    input#subjectInput.form-control(type='text', placeholder='Enter a subject')
+            .col-md-12
+                fieldset.form-group
+                    label(for='messageInput') Message
+                    textarea#messageInput.form-control(rows='5', placeholder='Enter a message')
+                #formWarning.alert.alert-warning.hidden-xs-up(role='alert')
+                    strong Oops
+                    | ! Please fill in all required fields.
+                #formSuccess.alert.alert-success.hidden-xs-up(role='alert')
+                    strong Success
+                    | ! Thank you for your message.
+                #formFailure.alert.alert-danger.hidden-xs-up(role='alert')
+                    strong Oops
+                    | ! Something went wrong.
+                    br
+                    |  Please contact me directly via
+                    a(href='mailto:contact@codypatterson.com') : email
+            .col-md-12
+                button#submitBut.btn.btn-primary(type='submit') Submit

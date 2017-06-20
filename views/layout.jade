@@ -26,19 +26,6 @@ script.
         $('.navSquare').removeClass('activeNav');
     }
 
-    // Bind click handler to menu items
-    // so we can get a fancy scroll animation
-    $('.navSquare').click(function () {
-        removeAllActive();
-        $(this).addClass('activeNav');
-
-        var href = $(this).attr('id').split('-')[1];
-        $('html,body').animate({
-                scrollTop: $('#' + href).offset().top - 25
-            },
-            'slow');
-    });
-
     // Bind to scroll
     $(window).scroll(function () {
         var positions = {
@@ -67,14 +54,16 @@ script.
         } else if (fromTop >= positions.resume && fromTop < positions.employment) {
             selectNav('#resume');
         } else if (fromTop >= positions.employment && fromTop < positions.contact) {
-            selectNav('#employment');
+            if ($(this).scrollTop() + $(this).height() == $(document).height()) {
+                selectNav('#contact');
+            } else {
+                selectNav('#employment');
+            }
         } else if (fromTop >= positions.contact) {
             selectNav('#contact');
         } else {
             console.log('Scrollspy Error: Could not detect where scroll was.');
         }
-
-
     });
 
     function selectNav(id) {
@@ -86,3 +75,16 @@ script.
             $navSq.addClass('activeNav');
         }
     }
+
+    // Bind click handler to menu items
+    // so we can get a fancy scroll animation
+    $('.navSquare').click(function () {
+        removeAllActive();
+        $(this).addClass('activeNav');
+
+        var href = $(this).attr('id').split('-')[1];
+        $('html,body').animate({
+                scrollTop: $('#' + href).offset().top - 25
+            },
+            'slow');
+    });

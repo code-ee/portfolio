@@ -10,6 +10,20 @@ a {
     color: #00B7FF;
 }
 
+footer {
+    text-align:center;
+    margin-top: 5vw;
+}
+
+.nav-link {
+    margin: 10px;
+    padding: 10px;
+}
+
+#formWarning, #formSuccess, #formFailure {
+    display: none;
+}
+
 .separator {
     width: 30vw;
     margin: 10px;
