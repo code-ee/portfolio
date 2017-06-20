@@ -53,7 +53,6 @@ script.
         };
         // Get container scroll position
         var fromTop = $(this).scrollTop() + 25;
-        console.log(fromTop);
 
         if(fromTop < positions.tech) {
             selectNav('#home');
@@ -72,7 +71,7 @@ script.
         } else if (fromTop >= positions.contact) {
             selectNav('#contact');
         } else {
-            console.log('could not detect where scroll was');
+            console.log('Scrollspy Error: Could not detect where scroll was.');
         }
 
 
