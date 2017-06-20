@@ -1,5 +1,4 @@
 body {
-    /*font-family: 'Roboto', sans-serif;*/
     font-family: 'Ubuntu', sans-serif;
     position:relative;
     padding: 15px;
@@ -28,7 +27,7 @@ a {
 }
 
 .big {
-    padding-bottom: 50px;
+    padding-bottom: 30px;
     font-size: 4vw;
 }
 

@@ -17,23 +17,11 @@ html
         link(rel='stylesheet', href='/stylesheets/style.css')
 
         //fonts
-        //link(href='https://fonts.googleapis.com/css?family=Roboto', rel='stylesheet')
         link(href='https://fonts.googleapis.com/css?family=Ubuntu', rel='stylesheet')
     body
         block content
 
 script.
-    var positions = {
-        home: $('#home').offset().top - 25,
-        tech: $('#tech').offset().top - 25,
-        projects: $('#projects').offset().top - 25,
-        social: $('#social').offset().top - 25,
-        stats: $('#stats').offset().top - 25,
-        resume: $('#resume').offset().top - 25,
-        employment: $('#employment').offset().top - 25,
-        contact: $('#contact').offset().top - 25
-    };
-
     function removeAllActive() {
         $('.navSquare').removeClass('activeNav');
     }
@@ -53,6 +41,16 @@ script.
 
     // Bind to scroll
     $(window).scroll(function () {
+        var positions = {
+            home: $('#home').offset().top - 25,
+            tech: $('#tech').offset().top - 25,
+            projects: $('#projects').offset().top - 25,
+            social: $('#social').offset().top - 25,
+            stats: $('#stats').offset().top - 25,
+            resume: $('#resume').offset().top - 25,
+            employment: $('#employment').offset().top - 25,
+            contact: $('#contact').offset().top - 25
+        };
         // Get container scroll position
         var fromTop = $(this).scrollTop() + 25;
         console.log(fromTop);
