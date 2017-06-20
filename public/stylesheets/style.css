@@ -10,13 +10,13 @@ a {
     color: #00B7FF;
 }
 
+.separator {
+    width: 30vw;
+    margin: 10px;
+    padding: 10px;
+}
 .cDisplayWrapper {
-    /*padding-top: 10%;*/
     z-index: 1;
-    /*float: left;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-    /*display: inline;*/
 }
 
 .name {
@@ -35,12 +35,6 @@ a {
 .leftPanelWrapper {
     overflow: auto;
     z-index: 3;
-    /*width: 33.3vw;*/
-    /*float: left;*/
-    /*display: inline;*/
-    /*padding: 0;*/
-    /*margin-top: 20vh;*/
-    /*margin-right: 3vw;*/
 }
 
 .square {
@@ -58,9 +52,10 @@ a {
     .leftPanelWrapper {
         margin-top: 20vh;
     }
-    /*.cDisplayWrapper {*/
-        /*padding-left: 45%;*/
-    /*}*/
+
+    .sName {
+        display:none;
+    }
 
     .navSquare {
         font-size: 1.1vw;
@@ -71,9 +66,10 @@ a {
     .leftPanelWrapper {
         margin-top: 20vh;
     }
-    /*.cDisplayWrapper {*/
-        /*padding-left: 55%;*/
-    /*}*/
+
+    .sName {
+        display:none;
+    }
 
     .navSquare {
         font-size: 15px;
@@ -81,13 +77,8 @@ a {
 }
 /*medium window size*/
 @media all and (max-width: 992px) and (min-width: 769px) {
-    /*.leftPanelWrapper {*/
-        /*margin-top: 20vh;*/
-    /*}*/
     .name {
-        bottom:0;
-        right:5px;
-        width:80%;
+        display:none;
     }
 
     .square {
@@ -97,6 +88,7 @@ a {
         min-height: 30px;
         margin: 3px;
     }
+
     .navSquare {
         font-size: 15px;
     }
@@ -104,14 +96,14 @@ a {
 /*small window size*/
 @media all and (max-width: 768px) and (min-width: 567px) {
     .name {
-        bottom:0;
-        right:5px;
-        width:75%;
+        display:none;
     }
+
     .leftPanelWrapper {
         top:0;
         left:0;
     }
+
     .square {
         width: 11vh;
         height: 11vh;
@@ -119,6 +111,7 @@ a {
         min-height: 30px;
         margin: 3px;
     }
+
     .navSquare {
         font-size: 15px;
     }
@@ -128,6 +121,7 @@ a {
     .name {
         display:none;
     }
+
     .leftPanelWrapper {
         top:0;
         left:0;
@@ -140,14 +134,15 @@ a {
         min-height: 30px;
         margin: 3px;
     }
+
     .navSquare {
         font-size: 15px;
     }
 }
+
 .navSquare {
     color: #A0A0A0;
     text-align: center;
-    /*font-size: calc(7px + .7vw);*/
     background-color: #1F1F1F;
 }
 
@@ -157,8 +152,6 @@ a {
     background-color: #2F2F2F;
     cursor: pointer;
 }
-
-
 
 .col-md-3 {
     padding-left: 0;
