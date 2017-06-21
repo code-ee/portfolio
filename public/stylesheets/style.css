@@ -15,6 +15,23 @@ footer {
     margin-top: 5vw;
 }
 
+.headShot {
+
+}
+
+#headShot {
+    width: 15vw;
+    height: 15vw;
+    min-width: 150px;
+    min-height: 150px;
+    display: block;
+    margin: auto;
+}
+
+.homeContent {
+    font-size: calc(12px + 0.5vw);
+}
+
 .nav-link {
     margin: 10px;
     padding: 10px;
