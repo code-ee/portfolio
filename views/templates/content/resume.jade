@@ -1,4 +1,13 @@
 h1#resume.big Résumé
-- for (var i = 0; i < 5; i++)
-    p.
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+.resumeWrapper.contentWrapper
+    i.
+        "A résumé doesn't make up a person entirely, but its certainly a nice introduction." -Cody Patterson
+    br
+    a(href='pdf/Patterson_TechResume_2017.pdf') See resume
+
+script.
+    $('a[href*="pdf"]').click(function (e) {
+        e.preventDefault(); // stop the existing link from firing
+        var documentUrl = $(this).attr("href"); // get the url of the pdf
+        window.open(documentUrl, '_blank'); // open the pdf in a new window/tab
+    });

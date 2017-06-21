@@ -15,8 +15,32 @@ footer {
     margin-top: 5vw;
 }
 
-.headShot {
+.techImage {
+    width: 8vw;
+    height: 8vw;
+    min-width: 100px;
+    min-height: 100px;
+    display: block;
+    margin: auto;
 
+    filter: grayscale(0.8);
+    -webkit-filter: grayscale(0.8);
+    -moz-filter: grayscale(0.8);
+    -o-filter: grayscale(0.8);
+    -ms-filter: grayscale(0.8);
+}
+
+.techImage:hover
+{
+    filter: grayscale(0);
+    -webkit-filter: grayscale(0);
+    -moz-filter: grayscale(0);
+    -o-filter: grayscale(0);
+    -ms-filter: grayscale(0);
+}
+
+.contentWrapper {
+    text-align:center;
 }
 
 #headShot {
