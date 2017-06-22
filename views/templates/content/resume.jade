@@ -1,9 +1,12 @@
 h1#resume.big Résumé
-.resumeWrapper.contentWrapper
-    i.
-        "A résumé doesn't make up a person entirely, but its certainly a nice introduction." -Cody Patterson
-    br
-    a(href='pdf/Patterson_TechResume_2017.pdf') See resume
+.row
+    .col-md-8
+        a(href='pdf/Patterson_TechResume_2017.pdf', target='_blank')
+            img#res-img.techImage.img-lnk(src='images/pdf.png', alt='Cody Patterson - Facebook')
+    .col-md-4
+.row
+    .col-md-12
+        i "A résumé doesn't make up a person entirely, but its certainly a nice introduction." -Cody Patterson
 
 script.
     $('a[href*="pdf"]').click(function (e) {
