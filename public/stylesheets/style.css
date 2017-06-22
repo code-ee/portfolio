@@ -22,21 +22,48 @@ footer {
     min-height: 100px;
     display: block;
     margin: auto;
+}
 
+.projImage {
+    width: 6vw;
+    height: 6vw;
+    min-width: 80px;
+    min-height: 80px;
+    display: block;
+    margin: auto;
+}
+
+.img-lnk {
     filter: grayscale(0.8);
     -webkit-filter: grayscale(0.8);
     -moz-filter: grayscale(0.8);
     -o-filter: grayscale(0.8);
     -ms-filter: grayscale(0.8);
 }
-
-.techImage:hover
+.img-lnk:hover
 {
     filter: grayscale(0);
     -webkit-filter: grayscale(0);
     -moz-filter: grayscale(0);
     -o-filter: grayscale(0);
     -ms-filter: grayscale(0);
+}
+
+.blkwhte {
+    filter: brightness(70%);
+    -webkit-filter: brightness(70%);
+    -moz-filter: brightness(70%);
+    -o-filter: brightness(70%);
+    -ms-filter: brightness(70%);
+}
+
+
+.blkwhte:hover {
+    filter: brightness(100%);
+    -webkit-filter: brightness(100%);
+    -moz-filter: brightness(100%);
+    -o-filter: brightness(100%);
+    -ms-filter: brightness(100%);
 }
 
 .contentWrapper {
@@ -46,8 +73,8 @@ footer {
 #headShot {
     width: 15vw;
     height: 15vw;
-    min-width: 150px;
-    min-height: 150px;
+    min-width: 175px;
+    min-height: 175px;
     display: block;
     margin: auto;
 }
@@ -57,18 +84,34 @@ footer {
 }
 
 .nav-link {
-    margin: 10px;
-    padding: 10px;
+    margin: 0.3vw;
+    padding: 0.3vw;
 }
 
 #formWarning, #formSuccess, #formFailure {
     display: none;
 }
-
+.firstSeparator {
+    width: 30vw;
+    margin-right: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-bottom: 4.1vw;
+    padding-bottom: 4.1vw;
+}
 .separator {
     width: 30vw;
-    margin: 10px;
-    padding: 10px;
+    margin-right: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+    margin-top: 4.1vw;
+    padding-top: 4.1vw;
+    margin-bottom: 4.1vw;
+    padding-bottom: 4.1vw;
 }
 .cDisplayWrapper {
     z-index: 1;

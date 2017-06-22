@@ -29,14 +29,14 @@ script.
     // Bind to scroll
     $(window).scroll(function () {
         var positions = {
-            home: $('#home').offset().top - 25,
-            tech: $('#tech').offset().top - 25,
-            projects: $('#projects').offset().top - 25,
-            social: $('#social').offset().top - 25,
-            stats: $('#stats').offset().top - 25,
-            resume: $('#resume').offset().top - 25,
-            employment: $('#employment').offset().top - 25,
-            contact: $('#contact').offset().top - 25
+            home: $('#t-home').offset().top - 50,
+            tech: $('#t-tech').offset().top - 50,
+            projects: $('#t-projects').offset().top - 50,
+            social: $('#t-social').offset().top - 50,
+            stats: $('#t-stats').offset().top - 50,
+            resume: $('#t-resume').offset().top - 50,
+            employment: $('#t-employment').offset().top - 50,
+            contact: $('#t-contact').offset().top - 50
         };
         // Get container scroll position
         var fromTop = $(this).scrollTop() + 25;
@@ -83,8 +83,22 @@ script.
         $(this).addClass('activeNav');
 
         var href = $(this).attr('id').split('-')[1];
-        $('html,body').animate({
-                scrollTop: $('#' + href).offset().top - 25
-            },
-            'slow');
+
+        if(href !== 'contact') {
+            var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            $('html,body').animate({
+                    scrollTop: $('#t-' + href).offset().top - 50
+                },
+                'slow'
+            );
+        } else {
+            var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            $('html,body').animate({
+                    scrollTop: $(document).height()
+                },
+                'slow'
+            );
+        }
+
+
     });
