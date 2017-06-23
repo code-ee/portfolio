@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var GitHubApi = require("github");
+var contributions = require('github-yearly-contributions');
 
 // connect the github api
 var github = new GitHubApi({
@@ -31,7 +32,7 @@ function getAge(dateString) {
 
 var age = getAge('1991/07/11');
 var repositories = 'err';
-var contributions = 'err';
+var yearlyContributions = 'err';
 var followers = 'err';
 
 // optional authenticate, not needed for non-sensitive info such as followers
@@ -48,19 +49,10 @@ github.users.getForUser({
     followers = JSON.stringify(res.data.followers);
 });
 
-github.activity.getEventsForUser({
-    username: "code-ee",
-}, function(err, res) {
-    console.log("****** EVENTS HERE: " + JSON.stringify(res));
+// get the number of user code-ee's contributions within the last year
+contributions('code-ee', function(err, amount){
+    yearlyContributions = amount;
 });
-
-
-// get the number of user code-ee's followers
-// github.users.getFollowersForUser({
-//     username: "code-ee"
-// }, function(err, res) {
-//     followers = JSON.stringify(res.data.length);
-// });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -69,7 +61,7 @@ router.get('/', function(req, res, next) {
         age: age,
         followers: followers,
         repositories: repositories,
-        contributions: contributions
+        contributions: yearlyContributions
     });
 });
 
