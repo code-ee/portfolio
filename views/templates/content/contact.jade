@@ -1,7 +1,7 @@
 h1#contact.big Contact
 #contactForm.row
     .col-md-12
-        form.text-xs-left
+        form(onsubmit='return sendEmail();').text-xs-left
             .col-md-6
                 fieldset.form-group
                     label(for='firstInput') First Name
@@ -40,3 +40,51 @@ h1#contact.big Contact
                     a(href='mailto:contact@codypatterson.com') : email
             .col-md-12
                 button#submitBut.btn.btn-primary(type='submit') Submit
+
+script.
+    $(document).ready(function(){
+        $('#formWarning').hide();
+        $('#formSuccess').hide();
+        $('#formFailure').hide();
+    });
+
+    function showSubmitMessage(status) {
+        $('#form' + status).show();
+    }
+
+    function sendEmail() {
+        var first = $('#firstInput').val();
+        var last = $('#lastInput').val();
+        var email = $('#emailInput').val();
+        var phone = $('#numberInput').val();
+        var subject = $('#subjectInput').val();
+        var message = $('#messageInput').val();
+
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:5000/REST/sendEmail',
+            dataType: 'json',
+            data: {
+                'first': first,
+                'last': last,
+                'email': email,
+                'phone': phone,
+                'subject': subject,
+                'message': message
+            },
+            success: function (data, status) {
+                alert('success: ' + status);
+                console.log('success: ' + status);
+                showSubmitMessage('Success');
+            },
+            complete: function (data, status) {
+                alert('complete: ' + status);
+                console.log('complete: ' + status);
+                if (status === 'error') {
+                    //alert('complete: ' + status);
+                    showSubmitMessage('Failure');
+                }
+            }
+        });
+        return false;
+    }

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var GitHubApi = require("github");
 var contributions = require('github-yearly-contributions');
+var nodemailer = require('nodemailer');
 
 // connect the github api
 var github = new GitHubApi({
@@ -53,6 +54,50 @@ github.users.getForUser({
 contributions('code-ee', function(err, amount){
     yearlyContributions = amount;
 });
+
+// set up email
+var myEmail = 'youremail@gmail.com';
+var myPass = 'password321';
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: myEmail,
+        pass: myPass
+    }
+});
+
+// send email
+router.post('/REST/sendEmail', function(req, res, next) {
+    var from = '"' + req.body.first;
+    from += ' ' + req.body.last + '" <';
+    from += req.body.email + '>';
+    var subject = req.body.subject;
+    var text = 'from: ' + from + '\n';
+    text += 'phone: ' + req.body.phone + '\n';
+    text += req.body.message;
+
+    console.log('*********DEBUG EMAILER');
+    console.log('from: ' + from);
+    console.log('to: ' + myEmail);
+    console.log('subject: ' + subject);
+    console.log('text: ' + text);
+
+    var mailOptions = {
+        from: from,
+        to: myEmail,
+        subject: subject,
+        text: text
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+});
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
