@@ -8,14 +8,14 @@ h1#stats.big Statistics
         label(for='repos') Public Repositories
         .statText.repositories#repos
             .big
-                p #{repositories}
+                a.img-lnk(href='https://github.com/code-ee?tab=repositories', target='_blank') #{repositories}
     .col-xs-6.col-md-4.col-lg-3
         label(for='contrb') Contributions This Year
         .statText.contributions#contrb
             .big
-                p #{contributions}
+                a.img-lnk(href='https://github.com/code-ee?tab=overview&from=2017-06-01&to=2017-06-23', target='_blank') #{contributions}
     .col-xs-6.col-md-4.col-lg-3
         label(for='follows') Followers
         .statText.followers#follows
             .big
-                p #{followers}
+                a.img-lnk(href='https://github.com/code-ee?tab=followers', target='_blank') #{followers}

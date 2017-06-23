@@ -1,6 +1,6 @@
 footer.text-xs-center
     .nav.nav-inline
-        a.nav-link.local-link(href='#top') Top
+        a.nav-link.local-link(href='javascript:scrollToTop();') Top
         a.nav-link(href='mailto:contact@codypatterson.com') Email
         a.nav-link(target='_blank', href='https://twitter.com/codytpatterson') Twitter
         a.nav-link(target='_blank', href='https://www.facebook.com/cody.patterson.545') Facebook
@@ -9,3 +9,12 @@ footer.text-xs-center
         a.nav-link(target='_blank', href='http://patterson-ethics.blogspot.com/') Blog
     p#copyright
         | Copyright © 2017 Cody Patterson - All Rights Reserved.
+
+script.
+    function scrollToTop() {
+        $('html,body').animate({
+                scrollTop: 0
+            },
+            'slow'
+        );
+    }

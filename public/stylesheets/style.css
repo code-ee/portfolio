@@ -46,6 +46,7 @@ footer {
 }
 .img-lnk:hover
 {
+    text-decoration: none;
     filter: grayscale(0);
     -webkit-filter: grayscale(0);
     -moz-filter: grayscale(0);
