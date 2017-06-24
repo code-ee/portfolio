@@ -6,15 +6,12 @@ var nodemailer = require('nodemailer');
 
 // connect the github api
 var github = new GitHubApi({
-    // optional
-    debug: true,
     protocol: "https",
     host: "api.github.com",
     pathPrefix: "",
     headers: {
         "user-agent": "codytpatterson-github-request"
     },
-    Promise: require('bluebird'),
     followRedirects: false,
     timeout: 5000
 });
@@ -30,34 +27,14 @@ function getAge(dateString) {
     }
     return age;
 }
-
-var age = getAge('1991/07/11');
+var age = 'err';
 var repositories = 'err';
 var yearlyContributions = 'err';
 var followers = 'err';
 
-// optional authenticate, not needed for non-sensitive info such as followers
-// github.authenticate({
-//     type: "basic",
-//     username: "username123",
-//     password: "password321"
-// });
-
-github.users.getForUser({
-    username: "code-ee",
-}, function(err, res) {
-    repositories = JSON.stringify(res.data.public_repos);
-    followers = JSON.stringify(res.data.followers);
-});
-
-// get the number of user code-ee's contributions within the last year
-contributions('code-ee', function(err, amount){
-    yearlyContributions = amount;
-});
-
 // set up email
-var myEmail = 'youremail@gmail.com';
-var myPass = 'password321';
+var myEmail = 'email@gmail.com';
+var myPass = 'password123';
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -72,16 +49,12 @@ router.post('/REST/sendEmail', function(req, res, next) {
     from += ' ' + req.body.last + '" <';
     from += req.body.email + '>';
     var subject = req.body.subject;
-    var text = 'from: ' + from + '\n';
-    text += 'phone: ' + req.body.phone + '\n';
+    var text = 'AUTOMATED EMAIL FROM CODYPATTERSON.COM:\n';
+    text += 'from: ' + from + '\n';
+    text += 'phone: ' + req.body.phone + '\n\n';
     text += req.body.message;
 
-    console.log('*********DEBUG EMAILER');
-    console.log('from: ' + from);
-    console.log('to: ' + myEmail);
-    console.log('subject: ' + subject);
-    console.log('text: ' + text);
-
+    // send the email to myself
     var mailOptions = {
         from: from,
         to: myEmail,
@@ -96,11 +69,46 @@ router.post('/REST/sendEmail', function(req, res, next) {
             console.log('Email sent: ' + info.response);
         }
     });
+
+    var autoEmailResponse = 'You are receiving this email because you recently submitted a form on codypatterson.com\n\n';
+    autoEmailResponse += 'Thank you for sending me the email, I\'ll be sure to get back to you within 48 hours or less.';
+
+    // send email back to sender automatically letting them know it was send
+    mailOptions = {
+        from: myEmail,
+        to: from,
+        subject: 'DO NOT REPLY: CODY PATTERSON',
+        text: autoEmailResponse
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+
+    res.end();
 });
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    age = getAge('1991/07/11');
+
+    github.users.getForUser({
+        username: "code-ee",
+    }, function(err, res) {
+        repositories = JSON.stringify(res.data.public_repos);
+        followers = JSON.stringify(res.data.followers);
+    });
+
+    // get the number of user code-ee's contributions within the last year
+    contributions('code-ee', function(err, amount){
+        yearlyContributions = amount;
+    });
+
     res.render('index', {
         title: 'Express',
         age: age,

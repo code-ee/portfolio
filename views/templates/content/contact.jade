@@ -1,19 +1,22 @@
 h1#contact.big Contact
 #contactForm.row
     .col-md-12
-        form(onsubmit='return sendEmail();').text-xs-left
+        form#emailForm(onsubmit='return sendEmail();').text-xs-left
             .col-md-6
                 fieldset.form-group
                     label(for='firstInput') First Name
                     input#firstInput.form-control(type='text', placeholder='Enter first name')
+                    span#g-firstInput.gw.glyphicon.form-control-feedback
             .col-md-6
                 fieldset.form-group
                     label(for='lastInput') Last Name
                     input#lastInput.form-control(type='text', placeholder='Enter last name')
+                    span#g-lastInput.gw.glyphicon.form-control-feedback
             .col-md-6
                 fieldset.form-group
                     label(for='emailInput') Email address
                     input#emailInput.form-control(type='email', placeholder='Enter email')
+                    span#g-emailInput.gw.glyphicon.form-control-feedback
             .col-md-6
                 fieldset.form-group
                     label(for='numberInput') Phone Number
@@ -22,10 +25,12 @@ h1#contact.big Contact
                 fieldset.form-group
                     label(for='subjectInput') Subject
                     input#subjectInput.form-control(type='text', placeholder='Enter a subject')
+                    span#g-subjectInput.gw.glyphicon.form-control-feedback
             .col-md-12
                 fieldset.form-group
                     label(for='messageInput') Message
                     textarea#messageInput.form-control(rows='5', placeholder='Enter a message')
+                    span#g-messageInput.gw.glyphicon.form-control-feedback
                 #formWarning.alert.alert-warning.hidden-xs-up(role='alert')
                     strong Oops
                     | ! Please fill in all required fields.
@@ -43,13 +48,51 @@ h1#contact.big Contact
 
 script.
     $(document).ready(function(){
+        //$('#g-firstInput').hide();
+        //$('#g-lastInput').hide();
+        //$('#g-emailInput').hide();
+        //$('#g-subjectInput').hide();
+        //$('#g-messageInput').hide();
+        hideAllMessages();
+    });
+
+    function hideAllMessages() {
         $('#formWarning').hide();
         $('#formSuccess').hide();
         $('#formFailure').hide();
-    });
+    }
 
     function showSubmitMessage(status) {
+        hideAllMessages();
         $('#form' + status).show();
+    }
+
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    function showSingleWarning(X, input) {
+        if (X) {
+            console.log('removed warning from ' + input);
+            $(input).parent().removeClass('has-warning');
+            $(input).parent().removeClass('has-feedback');
+            //$('g-' + input.substr(1)).hide();
+        } else {
+            console.log('added warning to ' + input);
+            $(input).parent().addClass('has-warning');
+            $(input).parent().addClass('has-feedback');
+            //$('g-' + input.substr(1)).show();
+        }
+    }
+
+    function showWarnings(V,A,L,I,D) {
+        showSingleWarning(V, '#firstInput');
+        showSingleWarning(A, '#lastInput');
+        showSingleWarning(L, '#emailInput');
+        showSingleWarning(I, '#subjectInput');
+        showSingleWarning(D, '#messageInput');
+        console.log('***');
     }
 
     function sendEmail() {
@@ -60,31 +103,46 @@ script.
         var subject = $('#subjectInput').val();
         var message = $('#messageInput').val();
 
-        $.ajax({
-            type: 'post',
-            url: 'http://localhost:5000/REST/sendEmail',
-            dataType: 'json',
-            data: {
-                'first': first,
-                'last': last,
-                'email': email,
-                'phone': phone,
-                'subject': subject,
-                'message': message
-            },
-            success: function (data, status) {
-                alert('success: ' + status);
-                console.log('success: ' + status);
-                showSubmitMessage('Success');
-            },
-            complete: function (data, status) {
-                alert('complete: ' + status);
-                console.log('complete: ' + status);
-                if (status === 'error') {
-                    //alert('complete: ' + status);
-                    showSubmitMessage('Failure');
+        var vFirst = first !== '';
+        var vLast = last !== '';
+        var vEmail = email !== '' && validateEmail(email);
+        var vSubject = subject !== '';
+        var vMessage = message !== '';
+
+        var validatedInput = (
+            vFirst &&
+            vLast &&
+            vEmail &&
+            vSubject &&
+            vMessage
+        );
+
+        if (validatedInput) {
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:5000/REST/sendEmail',
+                data: {
+                    'first': first,
+                    'last': last,
+                    'email': email,
+                    'phone': phone,
+                    'subject': subject,
+                    'message': message
+                },
+                success: function (data, status) {
+                    $('#emailForm').trigger('reset');
+                    showSubmitMessage('Success');
+                },
+                complete: function (data, status) {
+                    if (status === 'error') {
+                        //alert('complete: ' + status);
+                        showSubmitMessage('Failure');
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            showWarnings(vFirst, vLast, vEmail, vSubject, vMessage);
+            showSubmitMessage('Warning');
+        }
         return false;
     }
