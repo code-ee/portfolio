@@ -33,7 +33,7 @@ var yearlyContributions = 'err';
 var followers = 'err';
 
 // set up email
-var myEmail = 'email@gmail.com';
+var myEmail = 'myemail@gmail.com';
 var myPass = 'password123';
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -102,6 +102,7 @@ router.get('/', function(req, res, next) {
     }, function(err, res) {
         repositories = JSON.stringify(res.data.public_repos);
         followers = JSON.stringify(res.data.followers);
+        console.log(res);
     });
 
     // get the number of user code-ee's contributions within the last year
