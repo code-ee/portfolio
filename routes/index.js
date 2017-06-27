@@ -4,19 +4,7 @@ var GitHubApi = require("github");
 var contributions = require('github-yearly-contributions');
 var nodemailer = require('nodemailer');
 
-// connect the github api
-var github = new GitHubApi({
-    protocol: "https",
-    host: "api.github.com",
-    pathPrefix: "",
-    headers: {
-        "user-agent": "codytpatterson-github-request"
-    },
-    followRedirects: false,
-    timeout: 5000
-});
-
-// get age of cody
+// get age of person given date string
 function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);
@@ -27,14 +15,58 @@ function getAge(dateString) {
     }
     return age;
 }
-var age = 'err';
-var repositories = 'err';
-var yearlyContributions = 'err';
-var followers = 'err';
 
-// set up email
+// REST endpoint returns age
+router.get('/REST/getAge', function(req, res, next) {
+    var myAge = getAge('1991/07/11');
+    res.send({age: myAge});
+});
+
+// REST endpoint returns github stats
+router.get('/REST/getStats', function(req, res, next) {
+    var repositories = 'er';
+    var yearlyContributions = 'er';
+    var followers = 'er';
+
+    // connect the github api
+    var github = new GitHubApi({
+        protocol: "https",
+        host: "api.github.com",
+        pathPrefix: "",
+        headers: {
+            "user-agent": "codytpatterson-github-request"
+        },
+        followRedirects: false,
+        timeout: 5000
+    });
+
+    github.users.getForUser({
+        username: "code-ee",
+    }, function(err, res) {
+        console.log('**************** DEBUG HERE');
+        console.log('repos: ' + JSON.stringify(res.data.public_repos));
+        console.log('follows: ' + JSON.stringify(res.data.followers));
+        repositories = JSON.stringify(res.data.public_repos);
+        followers = JSON.stringify(res.data.followers);
+        //console.log(res);
+    });
+
+    // get the number of user code-ee's contributions within the last year
+    contributions('code-ee', function(err, amount){
+        yearlyContributions = amount;
+        console.log('contrb: ' + yearlyContributions);
+    });
+
+    res.send({
+        followers: followers,
+        repositories: repositories,
+        contributions: yearlyContributions
+    });
+});
+
+// initialize connection with gmail account
 var myEmail = 'myemail@gmail.com';
-var myPass = 'password123';
+var myPass = 'password321';
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -95,27 +127,8 @@ router.post('/REST/sendEmail', function(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    age = getAge('1991/07/11');
-
-    github.users.getForUser({
-        username: "code-ee",
-    }, function(err, res) {
-        repositories = JSON.stringify(res.data.public_repos);
-        followers = JSON.stringify(res.data.followers);
-        console.log(res);
-    });
-
-    // get the number of user code-ee's contributions within the last year
-    contributions('code-ee', function(err, amount){
-        yearlyContributions = amount;
-    });
-
     res.render('index', {
-        title: 'Express',
-        age: age,
-        followers: followers,
-        repositories: repositories,
-        contributions: yearlyContributions
+        title: 'Express'
     });
 });
 
