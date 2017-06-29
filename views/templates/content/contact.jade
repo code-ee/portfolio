@@ -1,36 +1,36 @@
 h1#contact.big Contact
 #contactForm.row
     .col-md-12
-        form#emailForm(onsubmit='return sendEmail();').text-xs-left
+        form#emailForm(onsubmit='return sendEmail();')
             .col-md-6
-                fieldset.form-group
-                    label(for='firstInput') First Name
+                .form-group
+                    label.form-control-label(for='firstInput') First Name
                     input#firstInput.form-control(type='text', placeholder='Enter first name')
-                    span#g-firstInput.gw.glyphicon.form-control-feedback
+                    span#firstInput-g
             .col-md-6
-                fieldset.form-group
-                    label(for='lastInput') Last Name
+                .form-group
+                    label.form-control-label(for='lastInput') Last Name
                     input#lastInput.form-control(type='text', placeholder='Enter last name')
-                    span#g-lastInput.gw.glyphicon.form-control-feedback
+                    span#lastInput-g
             .col-md-6
-                fieldset.form-group
-                    label(for='emailInput') Email address
+                .form-group
+                    label.form-control-label(for='emailInput') Email address
                     input#emailInput.form-control(type='email', placeholder='Enter email')
-                    span#g-emailInput.gw.glyphicon.form-control-feedback
+                    span#emailInput-g
             .col-md-6
-                fieldset.form-group
-                    label(for='numberInput') Phone Number
+                .form-group
+                    label.form-control-label(for='numberInput') Phone Number
                     input#numberInput.form-control(type='number', placeholder='Enter phone number (optional)')
             .col-md-12
-                fieldset.form-group
-                    label(for='subjectInput') Subject
+                .form-group
+                    label.form-control-label(for='subjectInput') Subject
                     input#subjectInput.form-control(type='text', placeholder='Enter a subject')
-                    span#g-subjectInput.gw.glyphicon.form-control-feedback
+                    span#subjectInput-g
             .col-md-12
-                fieldset.form-group
-                    label(for='messageInput') Message
+                .form-group
+                    label.form-control-label(for='messageInput') Message
                     textarea#messageInput.form-control(rows='5', placeholder='Enter a message')
-                    span#g-messageInput.gw.glyphicon.form-control-feedback
+                    span#messageInput-g
                 #formWarning.alert.alert-warning.hidden-xs-up(role='alert')
                     strong Oops
                     | ! Please fill in all required fields.
@@ -53,7 +53,7 @@ script.
         //$('#g-emailInput').hide();
         //$('#g-subjectInput').hide();
         //$('#g-messageInput').hide();
-        hideAllMessages();
+        //hideAllMessages();
     });
 
     function hideAllMessages() {
@@ -72,17 +72,17 @@ script.
         return re.test(email);
     }
 
-    function showSingleWarning(X, input) {
-        if (X) {
+    function showSingleWarning(valid, input) {
+        if (valid) {
             console.log('removed warning from ' + input);
-            $(input).parent().removeClass('has-warning');
-            $(input).parent().removeClass('has-feedback');
-            //$('g-' + input.substr(1)).hide();
+            $(input + '-g').removeClass('glyphicon glyphicon-warning-sign form-control-feedback');
+            $(input).parent().removeClass('has-warning has-feedback');
+            $(input).removeClass('form-control-warning');
         } else {
             console.log('added warning to ' + input);
-            $(input).parent().addClass('has-warning');
-            $(input).parent().addClass('has-feedback');
-            //$('g-' + input.substr(1)).show();
+            $(input + '-g').addClass('glyphicon glyphicon-warning-sign form-control-feedback');
+            $(input).parent().addClass('has-warning has-feedback');
+            $(input).addClass('form-control-warning');
         }
     }
 
@@ -92,7 +92,6 @@ script.
         showSingleWarning(L, '#emailInput');
         showSingleWarning(I, '#subjectInput');
         showSingleWarning(D, '#messageInput');
-        console.log('***');
     }
 
     function sendEmail() {

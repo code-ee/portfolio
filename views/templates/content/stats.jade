@@ -30,17 +30,11 @@ script.
                 'date': '1991/07/11'
             },
             success: function (data, status) {
-                console.log('repo: ' + JSON.stringify(data.repositories));
-                console.log('contrb: ' + JSON.stringify(data.contributions));
-                console.log('follow: ' + JSON.stringify(data.followers));
-
-                $('#a-repos').text(JSON.stringify(data.repositories));
-                $('#a-contrb').text(JSON.stringify(data.contributions));
-                $('#a-follows').text(JSON.stringify(data.followers));
-                console.log('success: ' + status);
+                $('#a-repos').text(data.repositories);
+                $('#a-contrb').text(data.contributions);
+                $('#a-follows').text(data.followers);
             },
             complete: function (data, status) {
-                console.log('complete: ' + status);
                 //alert(status);
             }
         });
